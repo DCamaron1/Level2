@@ -6,17 +6,17 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 public class LeagueInvaders {
-	JFrame frame; 
-	final int WIDTH = 500;
-	final int HEIGHT = 800;
+	JFrame frame;
+	static final int WIDTH = 500;
+	static final int HEIGHT = 800;
 	GamePanel gamePanel;
-	
-	public LeagueInvaders(){
+
+	public LeagueInvaders() {
 		frame = new JFrame();
 		gamePanel = new GamePanel();
 	}
-	
-	public void setup(){
+
+	public void setup() {
 		frame.add(gamePanel);
 		frame.addKeyListener(gamePanel);
 		frame.setVisible(true);
@@ -27,7 +27,7 @@ public class LeagueInvaders {
 		gamePanel.startGame();
 		System.out.println(gamePanel.getSize());
 	}
-	
+
 	public static void main(String[] args) {
 		LeagueInvaders bob = new LeagueInvaders();
 		bob.setup();
