@@ -1,6 +1,7 @@
 package org.jointheleaue.level2.leagueInvaders;
 
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -16,15 +17,13 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 	final int GAME_STATE = 1;
 	final int END_STATE = 2;
 	int currentState = MENU_STATE;
-	// GameObject gameObject;
+	Font menuFont;
+	Font finalFont;
 
 	@Override
 	public void paintComponent(Graphics g) {
-		/*
-		 * g.setColor(Color.white);
-		 * g.fillRect(0,0,LeagueInvaders.WIDTH,LeagueInvaders.HEIGHT);
-		 * g.setColor(Color.black); //gameObject.draw(g);
-		 */
+		menuFont = new Font("Arial",Font.PLAIN,48);
+		finalFont = new Font("Arial",Font.PLAIN,48);
 		if (currentState == MENU_STATE) {
 			drawMenuState(g);
 		} else if (currentState == GAME_STATE) {
@@ -56,15 +55,27 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 	}
 
 	public void drawMenuState(Graphics g) {
-
+		g.setColor(Color.BLUE);
+		g.fillRect(0, 0, LeagueInvaders.WIDTH, LeagueInvaders.HEIGHT);
+		g.setFont(menuFont);
+		g.setColor(Color.yellow);
+		g.drawString("LEAGUE INVADERS", 20,200 );
 	}
 
 	public void drawGameState(Graphics g) {
-
+		//System.out.println("drawing game state");
+		g.setColor(Color.BLACK);
+		g.fillRect(0, 0, LeagueInvaders.WIDTH, LeagueInvaders.HEIGHT);
 	}
 
 	public void drawEndState(Graphics g) {
-
+		//System.out.println("drawing end state");
+		g.setColor(Color.red);
+		g.fillRect(0, 0, LeagueInvaders.WIDTH, LeagueInvaders.HEIGHT);
+		g.setFont(finalFont);
+		g.setColor(Color.black);
+		g.drawString("Game Over", 100, 200);
+		
 	}
 
 	@Override
@@ -92,6 +103,19 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 	public void keyPressed(KeyEvent e) {
 		// TODO Auto-generated method stub
 		System.out.println("pressed");
+		if(currentState == MENU_STATE){
+			currentState=GAME_STATE;
+			System.out.println("Drawing Game State");
+		}
+
+		else if(currentState == GAME_STATE){
+			currentState = END_STATE;
+            System.out.println("Checking End State");
+		}
+		else if(currentState == END_STATE){
+            currentState = MENU_STATE;
+            System.out.println("Checking Menu State");
+		}
 	}
 
 	@Override
