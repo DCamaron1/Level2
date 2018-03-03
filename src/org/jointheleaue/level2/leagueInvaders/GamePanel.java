@@ -24,6 +24,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 	Font finalFont2;
 	Font finalFont3;
 	Rocketship bob = new Rocketship(250, 700, 50, 50);
+	ObjectManager manager = new ObjectManager(bob);
 
 	@Override
 	public void paintComponent(Graphics g) {
@@ -44,7 +45,6 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 
 	public GamePanel() {
 		timer = new Timer(1000 / 60, this);
-		// gameObject = new GameObject(50, 10, 100, 100);
 	}
 
 	public void startGame() {
@@ -56,7 +56,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 	}
 
 	public void updateGameState() {
-		bob.update();
+		manager.update();
 	}
 
 	public void updateEndState() {
@@ -118,25 +118,28 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 	public void keyTyped(KeyEvent e) {
 		// TODO Auto-generated method stub
 		// System.out.println("typed");
-		if (currentState == MENU_STATE) {
-			currentState = GAME_STATE;
-			System.out.println("Drawing Game State");
-		}
-
-		else if (currentState == GAME_STATE) {
-			currentState = END_STATE;
-			System.out.println("Checking End State");
-		} else if (currentState == END_STATE) {
-			currentState = MENU_STATE;
-			System.out.println("Checking Menu State");
-		}
-
-	}
+			}
 
 	@Override
 	public void keyPressed(KeyEvent e) {
 		// TODO Auto-generated method stub
 		// System.out.println("pressed");
+		bob.update();
+		if (e.getKeyCode() == 10) {	
+			if (currentState == MENU_STATE) {
+				currentState = GAME_STATE;
+				System.out.println("Drawing Game State");
+			}
+
+			else if (currentState == GAME_STATE) {
+				currentState = END_STATE;
+				System.out.println("Checking End State");
+			} else if (currentState == END_STATE) {
+				currentState = MENU_STATE;
+				System.out.println("Checking Menu State");
+			}
+		}
+
 		if (e.getKeyCode() == 37) {
 			bob.goLeft();
 		}
@@ -146,11 +149,15 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 		}
 
 		if (e.getKeyCode() == 38) {
-			bob.goUp();
-		}
+			bob.goUp();			
+			}
 
 		if (e.getKeyCode() == 40) {
 			bob.goDown();
+		}
+
+		if (e.getKeyCode() == 32) {
+			manager.addProjectile(new Projectile(bob.x, bob.y, 10, 10));
 		}
 	}
 
@@ -158,6 +165,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 	public void keyReleased(KeyEvent e) {
 		// TODO Auto-generated method stub
 		// System.out.println("released");
+		bob.stop();
 	}
 
 }
