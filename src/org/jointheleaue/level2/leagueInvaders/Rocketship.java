@@ -15,6 +15,7 @@ public class Rocketship extends GameObject {
 	}
 
 	public void update() {
+		super.update();
 		x = x + xSpeed;
 		y = y + ySpeed;
 	}
