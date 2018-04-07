@@ -6,6 +6,9 @@ import java.util.Random;
 
 public class ObjectManager {
 	Rocketship bob;
+	long enemyTimer = 0;
+	long enemySpawnTime = 2000;
+	long score = 0;
 	ArrayList<Projectile> projectiles = new ArrayList<Projectile>();
 	ArrayList<Alien> aliens = new ArrayList<Alien>();
 
@@ -21,6 +24,7 @@ public class ObjectManager {
 		for (int i = 0; i < aliens.size(); i++) {
 			aliens.get(i).update();
 		}
+
 	}
 
 	public void draw(Graphics g) {
@@ -34,6 +38,10 @@ public class ObjectManager {
 
 	}
 
+	public long getScore() {
+		return score;
+	}
+
 	public void addProjectile(Projectile projectile) {
 		projectiles.add(projectile);
 	}
@@ -43,8 +51,6 @@ public class ObjectManager {
 	}
 
 	public void manageEnemies() {
-		long enemyTimer = 0;
-		long enemySpawnTime = 1000;
 		if (System.currentTimeMillis() - enemyTimer >= enemySpawnTime) {
 			addAlien(new Alien(new Random().nextInt(LeagueInvaders.WIDTH), 0, 50, 50));
 			enemyTimer = System.currentTimeMillis();
@@ -59,6 +65,13 @@ public class ObjectManager {
 				projectiles.remove(i);
 			}
 		}
+		for (int i = 0; i < aliens.size(); i++) {
+			boolean isAliveCheck = aliens.get(i).isAlive;
+			if (isAliveCheck == false) {
+				aliens.remove(i);
+				score = score + 1;
+			}
+		}
 	}
 
 	public void checkCollision() {
@@ -69,6 +82,9 @@ public class ObjectManager {
 			for (Projectile p : projectiles) {
 				if (a.collisionBox.intersects(p.collisionBox)) {
 					a.isAlive = false;
+				}
+				if (a.collisionBox.intersects(p.collisionBox)) {
+					p.isAlive = false;
 				}
 			}
 		}

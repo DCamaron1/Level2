@@ -21,8 +21,7 @@ public class Rocketship extends GameObject {
 	}
 
 	public void draw(Graphics g) {
-		g.setColor(Color.blue);
-		g.fillRect(x, y, width, height);
+        g.drawImage(GamePanel.rocketImg, x, y, width, height, null);
 	}
 
 	public void goRight() {
@@ -40,7 +39,7 @@ public class Rocketship extends GameObject {
 	public void goUp() {
 		ySpeed = -5;
 	}
-	
+
 	public void stop() {
 		ySpeed = 0;
 		xSpeed = 0;

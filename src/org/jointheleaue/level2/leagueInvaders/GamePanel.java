@@ -7,7 +7,10 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
 
+import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
@@ -23,6 +26,10 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 	Font finalFont1;
 	Font finalFont2;
 	Font finalFont3;
+    public static BufferedImage alienImg;
+    public static BufferedImage rocketImg;
+    public static BufferedImage bulletImg;
+    public static BufferedImage spaceImg;
 	Rocketship bob = new Rocketship(250, 700, 50, 50);
 	ObjectManager manager = new ObjectManager(bob);
 
@@ -45,6 +52,15 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 
 	public GamePanel() {
 		timer = new Timer(1000 / 60, this);
+		 try {
+             alienImg = ImageIO.read(this.getClass().getResourceAsStream("alien.png"));
+             rocketImg = ImageIO.read(this.getClass().getResourceAsStream("rocket.png"));
+             bulletImg = ImageIO.read(this.getClass().getResourceAsStream("bullet.png"));
+             spaceImg = ImageIO.read(this.getClass().getResourceAsStream("space.png"));
+     } catch (IOException e) {
+             // TODO Auto-generated catch block
+             e.printStackTrace();
+     }
 	}
 
 	public void startGame() {
@@ -60,6 +76,10 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 		manager.manageEnemies();
 		manager.checkCollision();
 		manager.purgeObject();
+		manager.getScore();
+		if (bob.isAlive == false) {
+			currentState = END_STATE;
+		}
 	}
 
 	public void updateEndState() {
@@ -81,14 +101,11 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 	}
 
 	public void drawGameState(Graphics g) {
-		// System.out.println("drawing game state");
-		g.setColor(Color.BLACK);
-		g.fillRect(0, 0, LeagueInvaders.WIDTH, LeagueInvaders.HEIGHT);
+		 g.drawImage(GamePanel.spaceImg, 0, 0, LeagueInvaders.WIDTH, LeagueInvaders.HEIGHT, null);
 		manager.draw(g);
 	}
 
 	public void drawEndState(Graphics g) {
-		// System.out.println("drawing end state");
 		g.setColor(Color.red);
 		g.fillRect(0, 0, LeagueInvaders.WIDTH, LeagueInvaders.HEIGHT);
 		g.setFont(finalFont1);
@@ -96,7 +113,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 		g.drawString("Game Over", 130, 200);
 		g.setFont(finalFont2);
 		g.setColor(Color.black);
-		g.drawString("You killed " + "0 enemies", 135, 350);
+		g.drawString("You killed " + manager.getScore() + " enemies", 135, 350);
 		g.setFont(finalFont3);
 		g.setColor(Color.black);
 		g.drawString("Press ENTER to restart", 115, 500);
@@ -114,32 +131,26 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 			updateEndState();
 		}
 		// gameObject.update();
-		// System.out.println("action");
 	}
 
 	@Override
 	public void keyTyped(KeyEvent e) {
 		// TODO Auto-generated method stub
-		// System.out.println("typed");
-			}
+	}
 
 	@Override
 	public void keyPressed(KeyEvent e) {
 		// TODO Auto-generated method stub
-		// System.out.println("pressed");
 		bob.update();
-		if (e.getKeyCode() == 10) {	
+		if (e.getKeyCode() == 10) {
 			if (currentState == MENU_STATE) {
 				currentState = GAME_STATE;
-				System.out.println("Drawing Game State");
-			}
-
-			else if (currentState == GAME_STATE) {
+			} else if (currentState == GAME_STATE) {
 				currentState = END_STATE;
-				System.out.println("Checking End State");
 			} else if (currentState == END_STATE) {
+				bob = new Rocketship(250, 700, 50, 50);
+				manager = new ObjectManager(bob);
 				currentState = MENU_STATE;
-				System.out.println("Checking Menu State");
 			}
 		}
 
@@ -152,23 +163,22 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 		}
 
 		if (e.getKeyCode() == 38) {
-			bob.goUp();			
-			}
+			bob.goUp();
+		}
 
 		if (e.getKeyCode() == 40) {
 			bob.goDown();
 		}
 
 		if (e.getKeyCode() == 32) {
-			manager.addProjectile(new Projectile(bob.x + bob.width/2 - 5, bob.y, 10, 10));
-			
+			manager.addProjectile(new Projectile(bob.x + bob.width / 2 - 5, bob.y, 10, 10));
+
 		}
 	}
 
 	@Override
 	public void keyReleased(KeyEvent e) {
 		// TODO Auto-generated method stub
-		// System.out.println("released");
 		bob.stop();
 	}
 
