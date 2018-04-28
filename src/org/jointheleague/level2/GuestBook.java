@@ -27,8 +27,8 @@ public class GuestBook implements ActionListener {
 		button1.setText("Add Guest");
 		button2.setText("View Guests");
 		frame.pack();
-//		o'sirgvhbeSKbfjvipdn j
-	//	test jksssjsjsjsjsjsj j
+		//	o'sirgvhbeSKbfjvipdn j
+		//	test jksssjsjsjsjsjsj j
 	}
 
 	@Override
