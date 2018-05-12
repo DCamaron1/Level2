@@ -5,12 +5,18 @@ import javax.swing.JPanel;
 
 public class SadiesDashGame {
 	JFrame frame = new JFrame();
-	JPanel panel = new JPanel();
+	static final int WIDTH = 1100;
+	static final int HEIGHT = 600;
+	GamePanel panel;
 	
 	public void createUI() {
+		panel = new GamePanel();
 		frame.setVisible(true);
+		frame.addKeyListener(panel);
 		frame.add(panel);
-		frame.setSize(1100,500);
+		frame.setSize(WIDTH,HEIGHT);
+		panel.startGame();
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); 
 		
 	}
 	
