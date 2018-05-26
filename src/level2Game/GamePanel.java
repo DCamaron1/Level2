@@ -22,7 +22,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener{
 	
 	@Override
 	public void paintComponent(Graphics g) {
-		menuFont = new Font("David", Font.ROMAN_BASELINE, 10);
+		menuFont = new Font("David", Font.ROMAN_BASELINE, 42);
 		if (currentState == MENU_STATE) {
 			drawMenuState(g);
 		} else if (currentState == GAME_STATE) {
@@ -55,15 +55,18 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener{
 	public void drawMenuState(Graphics g) {
 		g.setColor(Color.lightGray);
 		g.fillRect(0, 0, SadiesDashGame.WIDTH, SadiesDashGame.HEIGHT);
+		g.setFont(menuFont);
+		g.setColor(Color.black);
+		g.drawString("Sadie's Dash", 200, 300);
 	}
 	
 	public void drawGameState(Graphics g) {
 		Color skyBlue = new Color(102,204,255);
+		Color groundBrown = new Color(102,51,10);
 		g.setColor(skyBlue);
 		g.fillRect(0, 0, SadiesDashGame.WIDTH, SadiesDashGame.HEIGHT);
-		g.setFont(menuFont);
-		g.setColor(skyBlue);
-		g.drawString("Created by David Calderon", 200, 300);
+		g.setColor(groundBrown);
+		g.fillRect(0,500,SadiesDashGame.GROUNDW, SadiesDashGame.GROUNDH);
 	}
 	
 	public void drawEndState(Graphics g) {
@@ -71,6 +74,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener{
 		g.fillRect(0, 0, SadiesDashGame.WIDTH, SadiesDashGame.HEIGHT);g.setFont(menuFont);
 		g.setColor(Color.BLACK);
 		g.drawString("Created by David Calderon", 200, 300);
+		//g.
 	}
 	
 
@@ -106,8 +110,11 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener{
 			} else if (currentState == END_STATE) {
 				currentState = MENU_STATE;
 			}
+		}
+		
+		if (e.getKeyCode() == 32) {
 			
-		}	
+		}
 	}
 
 	@Override
