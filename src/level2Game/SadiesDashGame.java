@@ -7,6 +7,8 @@ public class SadiesDashGame {
 	JFrame frame = new JFrame();
 	static final int WIDTH = 1100;
 	static final int HEIGHT = 600;
+	static final int GROUNDW = 1100;
+	static final int GROUNDH = 100;
 	GamePanel panel;
 	
 	public void createUI() {
