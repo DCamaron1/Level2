@@ -19,6 +19,8 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener{
 	Font menuFont;
 	Font endFont;
 	Timer timer;
+	GameObject gameObject;
+	Sadie sadie = new Sadie(250,250,50,50);
 	
 	@Override
 	public void paintComponent(Graphics g) {
@@ -38,6 +40,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener{
 	
 	public GamePanel() {
 		timer = new Timer(1000 / 60, this);
+//		gameObject = new GameObject();
 	}
 	
 	public void updateMenuState() {
@@ -74,13 +77,12 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener{
 		g.fillRect(0, 0, SadiesDashGame.WIDTH, SadiesDashGame.HEIGHT);g.setFont(menuFont);
 		g.setColor(Color.BLACK);
 		g.drawString("Created by David Calderon", 200, 300);
-		//g.
+		
 	}
 	
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		// TODO Auto-generated method stub
 		repaint(); 
 		
 		if (currentState == MENU_STATE) {
@@ -95,14 +97,12 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener{
 
 	@Override
 	public void keyTyped(KeyEvent e) {
-		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
 	public void keyPressed(KeyEvent e) {
-		// TODO Auto-generated method stub
-		if (e.getKeyCode() == 10) {
+			if (e.getKeyCode() == 10) {
 			if (currentState == MENU_STATE) {
 				currentState = GAME_STATE;
 			} else if (currentState == GAME_STATE) {
@@ -119,7 +119,6 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener{
 
 	@Override
 	public void keyReleased(KeyEvent e) {
-		// TODO Auto-generated method stub
 		
 	}
 }
