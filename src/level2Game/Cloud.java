@@ -8,10 +8,11 @@ public class Cloud extends GameObject{
 	
 	public Cloud(int x, int y, int width, int height) {
 		super(x, y, width, height);
+		xSpeed=2;
 	}
 
 	public void update() {
-		
+		x = x + xSpeed;
 	}
 	
 	public void draw(Graphics g) {
