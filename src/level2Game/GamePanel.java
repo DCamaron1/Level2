@@ -48,7 +48,8 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener{
 	}
 	
 	public void updateGameState() {
-		
+		manager.update();
+		manager.manageCloud();
 	}
 	
 	public void updateEndState() {
@@ -71,6 +72,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener{
 		g.setColor(groundBrown);
 		g.fillRect(0,500,SadiesDashGame.GROUNDW, SadiesDashGame.GROUNDH);
 		manager.draw(g);
+		
 		
 		
 	}
