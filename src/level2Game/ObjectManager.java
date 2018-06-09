@@ -42,7 +42,7 @@ public class ObjectManager {
 	public void manageCloud() {
 		long cloudSpawnTime = new Random().nextInt(500);
 		if (System.currentTimeMillis() - cloudTimer >= cloudSpawnTime*1000) {
-			addCloud(new Cloud(1100, 30));
+			addCloud(new Cloud(1100, 30,1));
 			cloudTimer = System.currentTimeMillis();
 		}
 	}	

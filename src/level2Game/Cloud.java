@@ -6,9 +6,9 @@ import java.awt.Graphics;
 public class Cloud extends GameObject{
 	int xSpeed; 
 	
-	public Cloud(int x, int y) {
+	public Cloud(int x, int y, int xSpeed) {
 		super(x, y,100,50);
-		xSpeed=1;
+		xSpeed= this.xSpeed;
 	}
 
 	public void update() {
