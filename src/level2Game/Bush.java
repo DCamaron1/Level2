@@ -6,16 +6,18 @@ import java.awt.Graphics;
 public class Bush extends GameObject{
 	int xSpeed; 
 	
-	public Bush(int x, int y, int width, int height) {
-		super(x, y, width, height);
+	public Bush(int x, int y, int xSpeed) {
+		super(x, y, 50,50);
+		this.xSpeed=xSpeed;
 	}
 
 	public void update() {
-		
+		super.update();
+		x = x - xSpeed;
 	}
 	
 	public void draw(Graphics g) {
 		g.setColor(Color.blue);
-		g.fillRect(500,460,50,50);
+		g.fillRect(x,y,width,height);
 	}
 }
