@@ -19,12 +19,9 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener{
 	Font menuFont;
 	Font endFont;
 	Timer timer;
-	GameObject gameObject;
 	Sadie sadie = new Sadie(250,250,500,50);
-	House house = new House(5,5,5,5);
-	GoodBoyPill pill = new GoodBoyPill(5,5,5,5);
-	Cloud cloud = new Cloud(5,5,5,5);
-	Bush bush = new Bush(5,5,5,5);
+	ObjectManager manager = new ObjectManager(sadie);
+	
 	
 	@Override
 	public void paintComponent(Graphics g) {
@@ -44,7 +41,6 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener{
 	
 	public GamePanel() {
 		timer = new Timer(1000 / 60, this);
-//		gameObject = new GameObject();
 	}
 	
 	public void updateMenuState() {
@@ -52,7 +48,8 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener{
 	}
 	
 	public void updateGameState() {
-		
+		manager.update();
+		manager.manageCloud();
 	}
 	
 	public void updateEndState() {
@@ -74,11 +71,9 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener{
 		g.fillRect(0, 0, SadiesDashGame.WIDTH, SadiesDashGame.HEIGHT);
 		g.setColor(groundBrown);
 		g.fillRect(0,500,SadiesDashGame.GROUNDW, SadiesDashGame.GROUNDH);
-		sadie.draw(g);
-		house.draw(g);
-		pill.draw(g);
-		cloud.draw(g);
-		bush.draw(g);
+		manager.draw(g);
+		
+		
 		
 	}
 	

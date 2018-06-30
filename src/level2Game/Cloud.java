@@ -2,20 +2,25 @@ package level2Game;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.util.Random;
 
 public class Cloud extends GameObject{
 	int xSpeed; 
+	int cloudY = new Random().nextInt(30);
 	
-	public Cloud(int x, int y, int width, int height) {
-		super(x, y, width, height);
+	public Cloud(int x, int y, int xSpeed) {
+		super(x, y,100,50);
+		this.xSpeed = xSpeed;
 	}
 
 	public void update() {
-		
+		super.update();
+		x = x - xSpeed;
 	}
 	
 	public void draw(Graphics g) {
+		
 		g.setColor(Color.gray);
-		g.fillRect(500,40,100,50);
+		g.fillRect(x,y+cloudY,width,height);
 	}
 }

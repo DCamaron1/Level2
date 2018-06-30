@@ -6,17 +6,19 @@ import java.awt.Graphics;
 public class House extends GameObject{
 	int xSpeed;
 	
-	public House(int x, int y, int width, int height) {
-		super(x, y, width, height);
+	public House(int x, int y, int xSpeed) {
+		super(x, y,70,90);
+		this.xSpeed = xSpeed;
 	}
 	
 	public void update() {
-		
+		super.update();
+		x = x - xSpeed;
 	}
 	
 	public void draw(Graphics g) {
 		g.setColor(Color.green);
-		g.fillRect(1000,410,100,100);
+		g.fillRect(x,y,width,height);
 	}
 	
 	

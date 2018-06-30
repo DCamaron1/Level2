@@ -6,17 +6,19 @@ import java.awt.Graphics;
 public class GoodBoyPill extends GameObject{
 	int xSpeed;
 	
-	public GoodBoyPill(int x, int y, int width, int height) {
-		super(x, y, width, height);
+	public GoodBoyPill(int x, int y, int xSpeed) {
+		super(x, y,50,20);
+		this.xSpeed = xSpeed;
 	}
 	
 	public void update() {
-		
+		super.update();
+		x = x - xSpeed;
 	}
 	
 	public void draw(Graphics g) {
 		g.setColor(Color.black);
-		g.fillRect(300,470,50,20);
+		g.fillRect(x,y,width,height);
 	}
 
 }
