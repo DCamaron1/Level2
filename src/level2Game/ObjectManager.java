@@ -38,7 +38,6 @@ public class ObjectManager {
 	}
 	
 	public void draw(Graphics g) {
-		sadie.draw(g);
 		for (int i = 0; i < clouds.size(); i++) {
 			clouds.get(i).draw(g);
 		}
@@ -51,6 +50,7 @@ public class ObjectManager {
 		for (int i = 0; i < pills.size(); i++) {
 			pills.get(i).draw(g);
 		}
+		sadie.draw(g);
 	}
 	
 	public void addCloud(Cloud cloud) {
@@ -71,8 +71,8 @@ public class ObjectManager {
 	
 	public void manageCloud() {
 		long cloudSpawnTime = new Random().nextInt(500);
-		long bushSpawnTime = new Random().nextInt(450);
-		long pillSpawnTime = new Random().nextInt(1000)+400;
+		long bushSpawnTime = new Random().nextInt(400+50);
+		long pillSpawnTime = new Random().nextInt(800+500);
 		if (System.currentTimeMillis() - timer >= cloudSpawnTime*1000) {
 			addCloud(new Cloud(1100, 30,1));
 			timer = System.currentTimeMillis();
@@ -82,10 +82,10 @@ public class ObjectManager {
 			timer = System.currentTimeMillis();
 		}
 		if (System.currentTimeMillis() - timer >= bushSpawnTime*1000) {
-			addBush(new Bush(1100, 450,3));
+			addBush(new Bush(1100, 450,4));
 			timer = System.currentTimeMillis();
 		}
-		if (System.currentTimeMillis() - timer >= pillSpawnTime*4000) {
+		if (System.currentTimeMillis() - timer >= pillSpawnTime*3000) {
 			addPill(new GoodBoyPill(1100, 450,2));
 			timer = System.currentTimeMillis();
 		}
