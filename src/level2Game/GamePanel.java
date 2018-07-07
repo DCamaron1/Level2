@@ -49,7 +49,11 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 	public void updateGameState() {
 		sadie.update();
 		manager.update();
-		manager.manageCloud();
+		manager.manageObjects();
+		manager.checkCollision();
+		if (sadie.isAlive == false) {
+			currentState = END_STATE;
+		}
 	}
 
 	public void updateEndState() {
@@ -87,7 +91,6 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		repaint();
-
 		if (currentState == MENU_STATE) {
 			updateMenuState();
 		} else if (currentState == GAME_STATE) {
@@ -110,7 +113,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 
 	@Override
 	public void keyReleased(KeyEvent e) {
-if (e.getKeyCode() == 10) {
+		if (e.getKeyCode() == 10) {
 			if (currentState == MENU_STATE) {
 				currentState = GAME_STATE;
 			} else if (currentState == GAME_STATE) {
