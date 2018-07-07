@@ -19,7 +19,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 	Font menuFont;
 	Font endFont;
 	Timer timer;
-	Sadie sadie = new Sadie(70, 460, 50, 50);
+	Sadie sadie = new Sadie(80, 460, 50, 50);
 	ObjectManager manager = new ObjectManager(sadie);
 
 	@Override
@@ -100,13 +100,17 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 
 	@Override
 	public void keyTyped(KeyEvent e) {
-
+		
 	}
 
 	@Override
 	public void keyPressed(KeyEvent e) {
-		//System.out.println(e.getKeyCode());
-		if (e.getKeyCode() == 10) {
+
+	}
+
+	@Override
+	public void keyReleased(KeyEvent e) {
+if (e.getKeyCode() == 10) {
 			if (currentState == MENU_STATE) {
 				currentState = GAME_STATE;
 			} else if (currentState == GAME_STATE) {
@@ -118,15 +122,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 
 		if (e.getKeyCode() == 32) {
 			sadie.jumpUp();
-			if(sadie.y <= 400) {
-				sadie.stop();
-				sadie.jumpDown();
-			}
+
 		}
-	}
-
-	@Override
-	public void keyReleased(KeyEvent e) {
-
 	}
 }
