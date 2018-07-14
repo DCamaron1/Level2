@@ -17,6 +17,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 	final int END_STATE = 2;
 	int currentState = MENU_STATE;
 	Font menuFont;
+	Font endFont1;
 	Font endFont;
 	Timer timer;
 	Sadie sadie = new Sadie(80, 460, 50, 50);
@@ -25,6 +26,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 	@Override
 	public void paintComponent(Graphics g) {
 		menuFont = new Font("David", Font.ROMAN_BASELINE, 42);
+		endFont1 = new Font("Arial", Font.CENTER_BASELINE, 60);
 		if (currentState == MENU_STATE) {
 			drawMenuState(g);
 		} else if (currentState == GAME_STATE) {
@@ -82,10 +84,13 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 	public void drawEndState(Graphics g) {
 		g.setColor(Color.black);
 		g.fillRect(0, 0, SadiesDashGame.WIDTH, SadiesDashGame.HEIGHT);
-		g.setFont(menuFont);
+		g.setFont(endFont1);
 		g.setColor(Color.BLACK);
 		g.drawString("Created by David Calderon", 200, 300);
-
+		g.setColor(Color.red);
+		g.drawString("Aww, you lost.", 290, 300);
+		g.setColor(Color.red);
+		g.drawString("Better luck next time", 230, 400);
 	}
 
 	@Override
@@ -108,24 +113,25 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 
 	@Override
 	public void keyPressed(KeyEvent e) {
-
-	}
-
-	@Override
-	public void keyReleased(KeyEvent e) {
 		if (e.getKeyCode() == 10) {
 			if (currentState == MENU_STATE) {
 				currentState = GAME_STATE;
 			} else if (currentState == GAME_STATE) {
 				currentState = END_STATE;
 			} else if (currentState == END_STATE) {
+				sadie= new Sadie(80,460,50,50);
+				manager=new ObjectManager(sadie);
 				currentState = MENU_STATE;
 			}
 		}
 
 		if (e.getKeyCode() == 32) {
 			sadie.jumpUp();
-
 		}
+	}
+
+	@Override
+	public void keyReleased(KeyEvent e) {
+		
 	}
 }

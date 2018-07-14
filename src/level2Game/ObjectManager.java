@@ -81,7 +81,7 @@ public class ObjectManager {
 			timer = System.currentTimeMillis();
 		}
 		if (System.currentTimeMillis() - timer >= bushSpawnTime * 1000) {
-			addBush(new Bush(1100, 450, 4));
+			addBush(new Bush(1100, 460, 4));
 			timer = System.currentTimeMillis();
 		}
 		if (System.currentTimeMillis() - timer >= pillSpawnTime * 3000) {
@@ -93,7 +93,6 @@ public class ObjectManager {
 	public void checkCollision(){
 		for(Bush a : bushes){
 	        if(sadie.collisionBox.intersects(a.collisionBox)) {
-	        	System.out.println("");
 	                sadie.isAlive = false;
 	        }
 		

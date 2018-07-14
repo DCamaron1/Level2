@@ -14,6 +14,7 @@ public class Sadie extends GameObject {
 	}
 
 	public void update() {
+		super.update();
 		y = y + ySpeed;
 		if (y > 460) {
 			y = 460;
@@ -21,6 +22,7 @@ public class Sadie extends GameObject {
 		if (y < 340) {
 			ySpeed = 4;
 		}
+		System.out.println();
 	}
 
 	public void draw(Graphics g) {
