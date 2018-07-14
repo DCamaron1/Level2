@@ -16,6 +16,7 @@ public class ObjectManager {
 	ArrayList<Cloud> clouds = new ArrayList<Cloud>();
 	ArrayList<Bush> bushes = new ArrayList<Bush>();
 	ArrayList<GoodBoyPill> pills = new ArrayList<GoodBoyPill>();
+	int yourPills;
 
 	public ObjectManager(Sadie rose) {
 		sadie = rose;
@@ -67,6 +68,10 @@ public class ObjectManager {
 	public void addPill(GoodBoyPill pill) {
 		pills.add(pill);
 	}
+	
+	public void addYPill() {
+		yourPills = yourPills+1;
+	}
 
 	public void manageObjects() {
 		long cloudSpawnTime = new Random().nextInt(500);
@@ -95,7 +100,12 @@ public class ObjectManager {
 	        if(sadie.collisionBox.intersects(a.collisionBox)) {
 	                sadie.isAlive = false;
 	        }
-		
 		}
+		
+		if (1==3) {
+			addYPill();
+			System.out.println("pill added");
+		}
+		
 	}
 }
