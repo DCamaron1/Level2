@@ -7,7 +7,7 @@ public class Bush extends GameObject{
 	int xSpeed; 
 	
 	public Bush(int x, int y, int xSpeed) {
-		super(x, y, 50,50);
+		super(x, y, 40,40);
 		this.xSpeed=xSpeed;
 	}
 
