@@ -53,6 +53,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 		manager.update();
 		manager.manageObjects();
 		manager.checkCollision();
+		manager.purgeObjects();
 		if (sadie.isAlive == false) {
 			currentState = END_STATE;
 		}
@@ -78,6 +79,8 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 		g.setColor(groundBrown);
 		g.fillRect(0, 500, SadiesDashGame.GROUNDW, SadiesDashGame.GROUNDH);
 		manager.draw(g);
+		g.setColor(Color.YELLOW);
+		g.drawRect(20,20,100,20);
 
 	}
 
@@ -88,7 +91,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 		g.setColor(Color.BLACK);
 		g.drawString("Created by David Calderon", 200, 300);
 		g.setColor(Color.red);
-		g.drawString("Aww, you lost.", 290, 300);
+		g.drawString("Aww, you lost.", 300, 300);
 		g.setColor(Color.red);
 		g.drawString("Better luck next time", 230, 400);
 	}
@@ -127,6 +130,10 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 
 		if (e.getKeyCode() == 32) {
 			sadie.jumpUp();
+		}
+		
+		if (e.getKeyCode()==83 && manager.yourPills>0) {
+			sadie.isProtected=true;
 		}
 	}
 

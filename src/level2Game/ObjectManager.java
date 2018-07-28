@@ -12,11 +12,12 @@ import org.jointheleaue.level2.leagueInvaders.Projectile;
 public class ObjectManager {
 	Sadie sadie;
 	long timer = 0;
+	long pillTimer = 0;
 	ArrayList<House> houses = new ArrayList<House>();
 	ArrayList<Cloud> clouds = new ArrayList<Cloud>();
 	ArrayList<Bush> bushes = new ArrayList<Bush>();
 	ArrayList<GoodBoyPill> pills = new ArrayList<GoodBoyPill>();
-	int yourPills;
+	int yourPills = 0;
 
 	public ObjectManager(Sadie rose) {
 		sadie = rose;
@@ -35,6 +36,13 @@ public class ObjectManager {
 		for (int i = 0; i < pills.size(); i++) {
 			pills.get(i).update();
 		}
+		if (sadie.isProtected == true) {
+			pillTimer++;
+		}
+		if (pillTimer > 300) {
+			sadie.isProtected = false;
+		}
+
 	}
 
 	public void draw(Graphics g) {
@@ -68,9 +76,9 @@ public class ObjectManager {
 	public void addPill(GoodBoyPill pill) {
 		pills.add(pill);
 	}
-	
+
 	public void addYPill() {
-		yourPills = yourPills+1;
+		yourPills = yourPills + 1;
 	}
 
 	public void manageObjects() {
@@ -94,18 +102,29 @@ public class ObjectManager {
 			timer = System.currentTimeMillis();
 		}
 	}
-	
-	public void checkCollision(){
-		for(Bush a : bushes){
-	        if(sadie.collisionBox.intersects(a.collisionBox)) {
-	                sadie.isAlive = false;
-	        }
+
+	public void checkCollision() {
+		for (Bush a : bushes) {
+			if (sadie.collisionBox.intersects(a.collisionBox) && sadie.isProtected == false) {
+				sadie.isAlive = false;
+			}
 		}
-		
-		if (1==3) {
-			addYPill();
-			System.out.println("pill added");
+
+		for (GoodBoyPill a : pills) {
+			if (sadie.collisionBox.intersects(a.collisionBox)) {
+				addYPill();
+				a.isAlive = false;
+			}
 		}
-		
+	}
+
+	public void purgeObjects() {
+		for (int i = 0; i < pills.size(); i++) {
+			boolean isAliveCheck = pills.get(i).isAlive;
+			if (isAliveCheck == false) {
+				pills.remove(i);
+			}
+
+		}
 	}
 }
