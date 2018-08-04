@@ -22,6 +22,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 	Timer timer;
 	Sadie sadie = new Sadie(80, 460, 50, 50);
 	ObjectManager manager = new ObjectManager(sadie);
+	
 
 	@Override
 	public void paintComponent(Graphics g) {
@@ -79,8 +80,8 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 		g.setColor(groundBrown);
 		g.fillRect(0, 500, SadiesDashGame.GROUNDW, SadiesDashGame.GROUNDH);
 		manager.draw(g);
-		g.setColor(Color.YELLOW);
-		g.drawRect(20,20,100,20);
+		g.setColor(Color.black);
+		g.drawRect(19,19,301,21);
 
 	}
 
@@ -134,6 +135,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 		
 		if (e.getKeyCode()==83 && manager.yourPills>0) {
 			sadie.isProtected=true;
+			manager.yourPills= manager.yourPills-1;
 		}
 	}
 

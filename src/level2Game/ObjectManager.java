@@ -1,6 +1,7 @@
 package level2Game;
 
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.util.ArrayList;
 import java.util.Random;
@@ -18,6 +19,8 @@ public class ObjectManager {
 	ArrayList<Bush> bushes = new ArrayList<Bush>();
 	ArrayList<GoodBoyPill> pills = new ArrayList<GoodBoyPill>();
 	int yourPills = 0;
+	String yourPillsString; 
+	int pillTime=300;
 
 	public ObjectManager(Sadie rose) {
 		sadie = rose;
@@ -38,11 +41,23 @@ public class ObjectManager {
 		}
 		if (sadie.isProtected == true) {
 			pillTimer++;
+			pillTime--;
+			System.out.println(pillTimer);
+			
 		}
 		if (pillTimer > 300) {
 			sadie.isProtected = false;
+			pillTimer=0;
 		}
-
+		if (yourPills<=5) {
+			yourPillsString = "" + yourPills;
+		}
+		if (yourPills>5) {
+			yourPillsString = "max";
+		}
+		//if (pillTime==0 && yourPills>0) {
+		//	pillTime=300;
+		//}
 	}
 
 	public void draw(Graphics g) {
@@ -59,6 +74,11 @@ public class ObjectManager {
 			pills.get(i).draw(g);
 		}
 		sadie.draw(g);
+		g.setColor(Color.YELLOW);
+		g.fillRect(20,20,pillTime,20);
+		g.setColor(Color.black);
+		Font font = new Font("David", Font.BOLD, 18);
+		g.drawString(yourPillsString,17,15);
 	}
 
 	public void addCloud(Cloud cloud) {
