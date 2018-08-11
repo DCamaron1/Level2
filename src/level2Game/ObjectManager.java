@@ -13,18 +13,15 @@ import org.jointheleaue.level2.leagueInvaders.Projectile;
 public class ObjectManager {
 	Sadie sadie;
 	long timer = 0;
-	long pillTimer = 0;
 	ArrayList<House> houses = new ArrayList<House>();
 	ArrayList<Cloud> clouds = new ArrayList<Cloud>();
 	ArrayList<Bush> bushes = new ArrayList<Bush>();
-	ArrayList<GoodBoyPill> pills = new ArrayList<GoodBoyPill>();
-	int yourPills = 0;
-	String yourPillsString; 
-	int pillTime=300;
+	PillManager manager;
 
 	public ObjectManager(Sadie rose) {
 		sadie = rose;
-	}
+		manager = new PillManager(sadie);
+		}
 
 	public void update() {
 		for (int i = 0; i < clouds.size(); i++) {
@@ -36,28 +33,9 @@ public class ObjectManager {
 		for (int i = 0; i < bushes.size(); i++) {
 			bushes.get(i).update();
 		}
-		for (int i = 0; i < pills.size(); i++) {
-			pills.get(i).update();
-		}
-		if (sadie.isProtected == true) {
-			pillTimer++;
-			pillTime--;
-			System.out.println(pillTimer);
-			
-		}
-		if (pillTimer > 300) {
-			sadie.isProtected = false;
-			pillTimer=0;
-		}
-		if (yourPills<=5) {
-			yourPillsString = "" + yourPills;
-		}
-		if (yourPills>5) {
-			yourPillsString = "max";
-		}
-		//if (pillTime==0 && yourPills>0) {
-		//	pillTime=300;
-		//}
+		manager.update();
+		manager.checkCollision();
+		manager.purgeObjects();
 	}
 
 	public void draw(Graphics g) {
@@ -70,15 +48,9 @@ public class ObjectManager {
 		for (int i = 0; i < bushes.size(); i++) {
 			bushes.get(i).draw(g);
 		}
-		for (int i = 0; i < pills.size(); i++) {
-			pills.get(i).draw(g);
-		}
 		sadie.draw(g);
-		g.setColor(Color.YELLOW);
-		g.fillRect(20,20,pillTime,20);
-		g.setColor(Color.black);
-		Font font = new Font("David", Font.BOLD, 18);
-		g.drawString(yourPillsString,17,15);
+		manager.draw(g);
+
 	}
 
 	public void addCloud(Cloud cloud) {
@@ -93,18 +65,9 @@ public class ObjectManager {
 		bushes.add(bush);
 	}
 
-	public void addPill(GoodBoyPill pill) {
-		pills.add(pill);
-	}
-
-	public void addYPill() {
-		yourPills = yourPills + 1;
-	}
-
 	public void manageObjects() {
 		long cloudSpawnTime = new Random().nextInt(500);
 		long bushSpawnTime = new Random().nextInt(400 + 50);
-		long pillSpawnTime = new Random().nextInt(800 + 500);
 		if (System.currentTimeMillis() - timer >= cloudSpawnTime * 1000) {
 			addCloud(new Cloud(1100, 30, 1));
 			timer = System.currentTimeMillis();
@@ -117,10 +80,7 @@ public class ObjectManager {
 			addBush(new Bush(1100, 460, 4));
 			timer = System.currentTimeMillis();
 		}
-		if (System.currentTimeMillis() - timer >= pillSpawnTime * 3000) {
-			addPill(new GoodBoyPill(1100, 450, 2));
-			timer = System.currentTimeMillis();
-		}
+		manager.managePills();
 	}
 
 	public void checkCollision() {
@@ -129,22 +89,10 @@ public class ObjectManager {
 				sadie.isAlive = false;
 			}
 		}
-
-		for (GoodBoyPill a : pills) {
-			if (sadie.collisionBox.intersects(a.collisionBox)) {
-				addYPill();
-				a.isAlive = false;
-			}
-		}
 	}
 
-	public void purgeObjects() {
-		for (int i = 0; i < pills.size(); i++) {
-			boolean isAliveCheck = pills.get(i).isAlive;
-			if (isAliveCheck == false) {
-				pills.remove(i);
-			}
-
-		}
+	public void usePill(){
+		manager.usePills();
 	}
+
 }

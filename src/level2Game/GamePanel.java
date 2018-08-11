@@ -54,7 +54,6 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 		manager.update();
 		manager.manageObjects();
 		manager.checkCollision();
-		manager.purgeObjects();
 		if (sadie.isAlive == false) {
 			currentState = END_STATE;
 		}
@@ -82,7 +81,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 		manager.draw(g);
 		g.setColor(Color.black);
 		g.drawRect(19,19,301,21);
-
+		
 	}
 
 	public void drawEndState(Graphics g) {
@@ -133,9 +132,8 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 			sadie.jumpUp();
 		}
 		
-		if (e.getKeyCode()==83 && manager.yourPills>0) {
-			sadie.isProtected=true;
-			manager.yourPills= manager.yourPills-1;
+		if (e.getKeyCode()==83) {
+			manager.usePill();
 		}
 	}
 
