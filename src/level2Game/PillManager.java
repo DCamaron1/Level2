@@ -35,7 +35,7 @@ public class PillManager {
 		if (yourPills <= 5) {
 			yourPillsString = "" + yourPills;
 		}
-		if (yourPills > 5) {
+		if (yourPills == 5) {
 			yourPillsString = "max";
 		}
 		
@@ -45,11 +45,19 @@ public class PillManager {
 		for (int i = 0; i < pills.size(); i++) {
 			pills.get(i).draw(g);
 		}
-		g.setColor(Color.YELLOW);
-		g.fillRect(20, 20, pillLength, 20);
 		g.setColor(Color.black);
 		Font font = new Font("David", Font.BOLD, 18);
 		g.drawString(yourPillsString, 17, 15);
+		if(sadie.isProtected){
+			g.setColor(Color.YELLOW);
+			g.fillRect(20, 20, pillLength, 20);
+		}
+		else if (yourPills>0 && sadie.isProtected) {
+			g.setColor(Color.YELLOW);
+			g.fillRect(20, 20,300, 20);
+		}
+		
+		
 	}
 
 	public void addYPill() {
