@@ -35,10 +35,10 @@ public class PillManager {
 		if (yourPills <= 5) {
 			yourPillsString = "" + yourPills;
 		}
-		if (yourPills == 5) {
+		if (yourPills >= 5) {
 			yourPillsString = "max";
+			yourPills = 5;
 		}
-		
 	}
 
 	public void draw(Graphics g) {
@@ -52,12 +52,10 @@ public class PillManager {
 			g.setColor(Color.YELLOW);
 			g.fillRect(20, 20, pillLength, 20);
 		}
-		else if (yourPills>0 && sadie.isProtected) {
+		else if (yourPills>0 ) {
 			g.setColor(Color.YELLOW);
 			g.fillRect(20, 20,300, 20);
 		}
-		
-		
 	}
 
 	public void addYPill() {
@@ -99,6 +97,5 @@ public class PillManager {
 			sadie.isProtected = true;
 			yourPills = yourPills - 1;
 		}
-		
 	}
 }

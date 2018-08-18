@@ -94,5 +94,13 @@ public class ObjectManager {
 	public void usePill(){
 		manager.usePills();
 	}
-
+	
+	public boolean inUse() {
+		if(manager.pillTimer==0) {
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
 }

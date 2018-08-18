@@ -132,7 +132,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 			sadie.jumpUp();
 		}
 		
-		if (e.getKeyCode()==83) {
+		if (e.getKeyCode()==83 && manager.inUse()) {
 			manager.usePill();
 		}
 	}
