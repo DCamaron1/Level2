@@ -21,7 +21,7 @@ public class ObjectManager {
 	public ObjectManager(Sadie rose) {
 		sadie = rose;
 		manager = new PillManager(sadie);
-		}
+	}
 
 	public void update() {
 		for (int i = 0; i < clouds.size(); i++) {
@@ -50,7 +50,6 @@ public class ObjectManager {
 		}
 		sadie.draw(g);
 		manager.draw(g);
-
 	}
 
 	public void addCloud(Cloud cloud) {
@@ -67,17 +66,17 @@ public class ObjectManager {
 
 	public void manageObjects() {
 		long cloudSpawnTime = new Random().nextInt(500);
-		long bushSpawnTime = new Random().nextInt(400 + 50);
+		long bushSpawnTime = new Random().nextInt(200);
 		if (System.currentTimeMillis() - timer >= cloudSpawnTime * 1000) {
-			addCloud(new Cloud(1100, 30, 1));
+			addCloud(new Cloud(SadiesDashGame.WIDTH, 30, 1));
 			timer = System.currentTimeMillis();
 		}
 		if (System.currentTimeMillis() - timer >= cloudSpawnTime * 2000) {
-			addHouse(new House(1100, 410, 3));
+			addHouse(new House(SadiesDashGame.WIDTH, 410, 3));
 			timer = System.currentTimeMillis();
 		}
 		if (System.currentTimeMillis() - timer >= bushSpawnTime * 1000) {
-			addBush(new Bush(1100, 460, 4));
+			addBush(new Bush(SadiesDashGame.WIDTH, 460, 4));
 			timer = System.currentTimeMillis();
 		}
 		manager.managePills();
@@ -85,22 +84,20 @@ public class ObjectManager {
 
 	public void checkCollision() {
 		for (Bush a : bushes) {
-			if (sadie.collisionBox.intersects(a.collisionBox) && sadie.isProtected == false) {
+			if (sadie.collisionBox.intersects(a.collisionBox) && !sadie.isProtected) {
 				sadie.isAlive = false;
 			}
 		}
 	}
 
-	public void usePill(){
+	public void usePill() {
 		manager.usePills();
 	}
-	
+
 	public boolean inUse() {
-		if(manager.pillTimer==0) {
-			return true;
-		}
-		else {
-			return false;
-		}
+		return manager.inUse();
 	}
+	
+	
+	
 }

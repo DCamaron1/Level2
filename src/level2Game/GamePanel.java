@@ -18,11 +18,10 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 	int currentState = MENU_STATE;
 	Font menuFont;
 	Font endFont1;
-	Font endFont;
 	Timer timer;
-	Sadie sadie = new Sadie(80, 460, 50, 50);
+	static final int GROUND_LEVEL = 500;
+	Sadie sadie = new Sadie(80, GROUND_LEVEL - 40, 50, 50);
 	ObjectManager manager = new ObjectManager(sadie);
-	
 
 	@Override
 	public void paintComponent(Graphics g) {
@@ -77,11 +76,10 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 		g.setColor(skyBlue);
 		g.fillRect(0, 0, SadiesDashGame.WIDTH, SadiesDashGame.HEIGHT);
 		g.setColor(groundBrown);
-		g.fillRect(0, 500, SadiesDashGame.GROUNDW, SadiesDashGame.GROUNDH);
+		g.fillRect(0, GROUND_LEVEL, SadiesDashGame.WIDTH, SadiesDashGame.GROUNDH);
 		manager.draw(g);
 		g.setColor(Color.black);
-		g.drawRect(19,19,301,21);
-		
+		g.drawRect(19, 19, 301, 21);
 	}
 
 	public void drawEndState(Graphics g) {
@@ -89,7 +87,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 		g.fillRect(0, 0, SadiesDashGame.WIDTH, SadiesDashGame.HEIGHT);
 		g.setFont(endFont1);
 		g.setColor(Color.BLACK);
-		g.drawString("Created by David Calderon", 200, 300);
+		g.drawString("Created by David Calderon", 100, 100);
 		g.setColor(Color.red);
 		g.drawString("Aww, you lost.", 300, 300);
 		g.setColor(Color.red);
@@ -106,12 +104,11 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 		} else if (currentState == END_STATE) {
 			updateEndState();
 		}
-
 	}
 
 	@Override
 	public void keyTyped(KeyEvent e) {
-		
+
 	}
 
 	@Override
@@ -122,23 +119,21 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 			} else if (currentState == GAME_STATE) {
 				currentState = END_STATE;
 			} else if (currentState == END_STATE) {
-				sadie= new Sadie(80,460,50,50);
-				manager=new ObjectManager(sadie);
+				sadie = new Sadie(80, GROUND_LEVEL - 40, 50, 50);
+				manager = new ObjectManager(sadie);
 				currentState = MENU_STATE;
 			}
 		}
-
 		if (e.getKeyCode() == 32) {
 			sadie.jumpUp();
 		}
-		
-		if (e.getKeyCode()==83 && manager.inUse()) {
+		if (e.getKeyCode() == 83 && manager.inUse()==false) {
 			manager.usePill();
 		}
 	}
 
 	@Override
 	public void keyReleased(KeyEvent e) {
-		
+
 	}
 }
