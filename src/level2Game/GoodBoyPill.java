@@ -19,7 +19,6 @@ public class GoodBoyPill extends GameObject{
 	public void draw(Graphics g) {
 		g.setColor(Color.black);
 		g.fillRect(x,y,width,height);
-		
 	}
 	
 	

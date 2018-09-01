@@ -4,13 +4,13 @@ import java.awt.Graphics;
 import java.awt.Rectangle;
 
 public class GameObject {
-	int x;
-	int y;
-	int width;
-	int height;
-	boolean isAlive = true;
-	boolean isProtected = false;
-	Rectangle collisionBox;
+	private int x;
+	private int y;
+	private int width;
+	private int height;
+	private boolean isAlive = true;
+	private boolean isProtected = false;
+	private Rectangle collisionBox;
 
 	public GameObject(int x, int y, int width, int height) {
 		this.x = x;
