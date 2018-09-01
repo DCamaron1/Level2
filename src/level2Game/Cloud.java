@@ -4,12 +4,12 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.util.Random;
 
-public class Cloud extends GameObject{
-	int xSpeed; 
+public class Cloud extends GameObject {
+	int xSpeed;
 	int cloudY = new Random().nextInt(30);
-	
+
 	public Cloud(int x, int y, int xSpeed) {
-		super(x, y,100,50);
+		super(x, y, 100, 50);
 		this.xSpeed = xSpeed;
 	}
 
@@ -17,10 +17,10 @@ public class Cloud extends GameObject{
 		super.update();
 		x = x - xSpeed;
 	}
-	
+
 	public void draw(Graphics g) {
-		
+
 		g.setColor(Color.gray);
-		g.fillRect(x,y+cloudY,width,height);
+		g.fillRect(x, y + cloudY, width, height);
 	}
 }

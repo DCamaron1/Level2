@@ -8,8 +8,7 @@ public class WarmUp {
 		ages.add(2);
 		ages.add(10);
 		ages.set(0, ages.get(0) + 2);
-		ages.add(0,50);
+		ages.add(0, 50);
 		System.out.println(ages);
 	}
 }
-

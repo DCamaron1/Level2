@@ -39,8 +39,8 @@ public class PillManager {
 			yourPillsString = "max";
 			yourPills = 5;
 		}
-		if (pillLength<0) {
-			pillLength=300;
+		if (pillLength < 0) {
+			pillLength = 300;
 		}
 	}
 
@@ -57,10 +57,10 @@ public class PillManager {
 		} else if (yourPills > 0) {
 			g.setColor(Color.YELLOW);
 			g.fillRect(20, 20, 300, 20);
-		} 
-		
+		}
+
 	}
-	
+
 	public void addYPill() {
 		yourPills = yourPills + 1;
 	}
@@ -70,7 +70,7 @@ public class PillManager {
 	}
 
 	public void managePills() {
-		long pillSpawnTime = new Random().nextInt(200)+ 10;
+		long pillSpawnTime = new Random().nextInt(200) + 10;
 		if (System.currentTimeMillis() - timer >= pillSpawnTime * 1000) {
 			addPill(new GoodBoyPill(SadiesDashGame.WIDTH, 450, 2));
 			timer = System.currentTimeMillis();
@@ -101,19 +101,15 @@ public class PillManager {
 			yourPills = yourPills - 1;
 		}
 	}
-	
+
 	public boolean inUse() {
-		if (pillTimer >0) {
+		if (pillTimer > 0) {
 			System.out.println("in use");
 			return true;
-		}
-		else {
+		} else {
 			System.out.println("not in use");
 			return false;
 		}
 	}
-	
-	
-	
-	
+
 }

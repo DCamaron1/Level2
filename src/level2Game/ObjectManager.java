@@ -97,7 +97,5 @@ public class ObjectManager {
 	public boolean inUse() {
 		return manager.inUse();
 	}
-	
-	
-	
+
 }

@@ -3,23 +3,22 @@ package level2Game;
 import java.awt.Color;
 import java.awt.Graphics;
 
-public class House extends GameObject{
+public class House extends GameObject {
 	int xSpeed;
-	
+
 	public House(int x, int y, int xSpeed) {
-		super(x, y,70,90);
+		super(x, y, 70, 90);
 		this.xSpeed = xSpeed;
 	}
-	
+
 	public void update() {
 		super.update();
 		x = x - xSpeed;
 	}
-	
+
 	public void draw(Graphics g) {
 		g.setColor(Color.green);
-		g.fillRect(x,y,width,height);
+		g.fillRect(x, y, width, height);
 	}
-	
-	
+
 }
