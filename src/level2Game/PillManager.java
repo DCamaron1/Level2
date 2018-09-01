@@ -70,8 +70,8 @@ public class PillManager {
 	}
 
 	public void managePills() {
-		long pillSpawnTime = new Random().nextInt(500)+ 200;
-		if (System.currentTimeMillis() - timer >= pillSpawnTime * 2000) {
+		long pillSpawnTime = new Random().nextInt(200)+ 10;
+		if (System.currentTimeMillis() - timer >= pillSpawnTime * 1000) {
 			addPill(new GoodBoyPill(SadiesDashGame.WIDTH, 450, 2));
 			timer = System.currentTimeMillis();
 		}
