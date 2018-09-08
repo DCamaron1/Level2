@@ -26,7 +26,6 @@ public class PillManager {
 		if (sadie.isProtected == true) {
 			pillTimer++;
 			pillLength--;
-			System.out.println(pillTimer);
 		}
 		if (pillTimer > 300) {
 			sadie.isProtected = false;
@@ -104,10 +103,8 @@ public class PillManager {
 
 	public boolean inUse() {
 		if (pillTimer > 0) {
-			System.out.println("in use");
 			return true;
 		} else {
-			System.out.println("not in use");
 			return false;
 		}
 	}
