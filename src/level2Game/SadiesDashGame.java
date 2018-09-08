@@ -10,18 +10,18 @@ public class SadiesDashGame {
 	static final int GROUNDW = 1100;
 	static final int GROUNDH = 100;
 	GamePanel panel;
-	
+
 	public void createUI() {
 		panel = new GamePanel();
 		frame.setVisible(true);
 		frame.addKeyListener(panel);
 		frame.add(panel);
-		frame.setSize(WIDTH,HEIGHT);
+		frame.setSize(WIDTH, HEIGHT);
 		panel.startGame();
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); 
-		
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
 	}
-	
+
 	public static void main(String[] args) {
 		SadiesDashGame bob = new SadiesDashGame();
 		bob.createUI();

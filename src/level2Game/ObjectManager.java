@@ -1,6 +1,7 @@
 package level2Game;
 
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.util.ArrayList;
 import java.util.Random;
@@ -15,10 +16,11 @@ public class ObjectManager {
 	ArrayList<House> houses = new ArrayList<House>();
 	ArrayList<Cloud> clouds = new ArrayList<Cloud>();
 	ArrayList<Bush> bushes = new ArrayList<Bush>();
-	ArrayList<GoodBoyPill> pills = new ArrayList<GoodBoyPill>();
+	PillManager manager;
 
 	public ObjectManager(Sadie rose) {
 		sadie = rose;
+		manager = new PillManager(sadie);
 	}
 
 	public void update() {
@@ -31,9 +33,9 @@ public class ObjectManager {
 		for (int i = 0; i < bushes.size(); i++) {
 			bushes.get(i).update();
 		}
-		for (int i = 0; i < pills.size(); i++) {
-			pills.get(i).update();
-		}
+		manager.update();
+		manager.checkCollision();
+		manager.purgeObjects();
 	}
 
 	public void draw(Graphics g) {
@@ -46,10 +48,8 @@ public class ObjectManager {
 		for (int i = 0; i < bushes.size(); i++) {
 			bushes.get(i).draw(g);
 		}
-		for (int i = 0; i < pills.size(); i++) {
-			pills.get(i).draw(g);
-		}
 		sadie.draw(g);
+		manager.draw(g);
 	}
 
 	public void addCloud(Cloud cloud) {
@@ -64,38 +64,38 @@ public class ObjectManager {
 		bushes.add(bush);
 	}
 
-	public void addPill(GoodBoyPill pill) {
-		pills.add(pill);
-	}
-
 	public void manageObjects() {
 		long cloudSpawnTime = new Random().nextInt(500);
-		long bushSpawnTime = new Random().nextInt(400 + 50);
-		long pillSpawnTime = new Random().nextInt(800 + 500);
+		long bushSpawnTime = new Random().nextInt(200);
 		if (System.currentTimeMillis() - timer >= cloudSpawnTime * 1000) {
-			addCloud(new Cloud(1100, 30, 1));
+			addCloud(new Cloud(SadiesDashGame.WIDTH, 30, 1));
 			timer = System.currentTimeMillis();
 		}
 		if (System.currentTimeMillis() - timer >= cloudSpawnTime * 2000) {
-			addHouse(new House(1100, 410, 3));
+			addHouse(new House(SadiesDashGame.WIDTH, 410, 3));
 			timer = System.currentTimeMillis();
 		}
 		if (System.currentTimeMillis() - timer >= bushSpawnTime * 1000) {
-			addBush(new Bush(1100, 460, 4));
+			addBush(new Bush(SadiesDashGame.WIDTH, 460, 4));
 			timer = System.currentTimeMillis();
 		}
-		if (System.currentTimeMillis() - timer >= pillSpawnTime * 3000) {
-			addPill(new GoodBoyPill(1100, 450, 2));
-			timer = System.currentTimeMillis();
+		manager.managePills();
+	}
+
+	public void checkCollision() {
+		for (Bush a : bushes) {
+			if (sadie.collisionBox.intersects(a.collisionBox) && !sadie.isProtected) {
+				sadie.isAlive = false;
+			}
 		}
 	}
-	
-	public void checkCollision(){
-		for(Bush a : bushes){
-	        if(sadie.collisionBox.intersects(a.collisionBox)) {
-	                sadie.isAlive = false;
-	        }
-		
-		}
+
+	public void usePill() {
+		manager.usePills();
 	}
+
+	public boolean inUse() {
+		return manager.inUse();
+	}
+
 }
