@@ -22,7 +22,6 @@ public class Sadie extends GameObject {
 		if (y < 340) {
 			ySpeed = 4;
 		}
-		System.out.println();
 	}
 
 	public void draw(Graphics g) {

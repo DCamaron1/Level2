@@ -17,6 +17,7 @@ public class ObjectManager {
 	ArrayList<Cloud> clouds = new ArrayList<Cloud>();
 	ArrayList<Bush> bushes = new ArrayList<Bush>();
 	PillManager manager;
+	Scoreboard score = new Scoreboard();
 
 	public ObjectManager(Sadie rose) {
 		sadie = rose;
@@ -34,6 +35,7 @@ public class ObjectManager {
 			bushes.get(i).update();
 		}
 		manager.update();
+		score.update();
 		manager.checkCollision();
 		manager.purgeObjects();
 	}
@@ -49,6 +51,7 @@ public class ObjectManager {
 			bushes.get(i).draw(g);
 		}
 		sadie.draw(g);
+		score.draw(g);
 		manager.draw(g);
 	}
 
@@ -86,6 +89,9 @@ public class ObjectManager {
 		for (Bush a : bushes) {
 			if (sadie.collisionBox.intersects(a.collisionBox) && !sadie.isProtected) {
 				sadie.isAlive = false;
+			}
+			if(score.box.collisionBox.intersects(a.collisionBox)) {
+				
 			}
 		}
 	}
