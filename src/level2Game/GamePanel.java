@@ -53,6 +53,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 		manager.update();
 		manager.manageObjects();
 		manager.checkCollision();
+		manager.purgeObjects();
 		if (sadie.isAlive == false) {
 			currentState = END_STATE;
 		}

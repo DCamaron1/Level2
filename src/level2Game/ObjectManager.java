@@ -12,12 +12,16 @@ import org.jointheleaue.level2.leagueInvaders.Projectile;
 
 public class ObjectManager {
 	Sadie sadie;
-	long timer = 0;
+	private long timer = 0;
+	private long score = 0;
+	private long highScore = 0;
+	private String scoreString;
+	private String highScoreString;
 	ArrayList<House> houses = new ArrayList<House>();
 	ArrayList<Cloud> clouds = new ArrayList<Cloud>();
 	ArrayList<Bush> bushes = new ArrayList<Bush>();
 	PillManager manager;
-	Scoreboard score = new Scoreboard();
+	
 
 	public ObjectManager(Sadie rose) {
 		sadie = rose;
@@ -33,9 +37,15 @@ public class ObjectManager {
 		}
 		for (int i = 0; i < bushes.size(); i++) {
 			bushes.get(i).update();
+			if (bushes.get(i).x < -50) {
+				bushes.get(i).isAlive=false;
+			}
 		}
+		if (score>highScore) {
+			highScore = score;
+		}
+		
 		manager.update();
-		score.update();
 		manager.checkCollision();
 		manager.purgeObjects();
 	}
@@ -50,8 +60,13 @@ public class ObjectManager {
 		for (int i = 0; i < bushes.size(); i++) {
 			bushes.get(i).draw(g);
 		}
+		Font font = new Font("David", Font.BOLD, 42);
+		scoreString = "Score: " + score;
+		g.setColor(Color.black);
+		g.drawString(scoreString, 17, 55);
+		highScoreString = "High Score: " + highScore ;
+		g.drawString(highScoreString, 17, 70);
 		sadie.draw(g);
-		score.draw(g);
 		manager.draw(g);
 	}
 
@@ -90,9 +105,6 @@ public class ObjectManager {
 			if (sadie.collisionBox.intersects(a.collisionBox) && !sadie.isProtected) {
 				sadie.isAlive = false;
 			}
-			if(score.box.collisionBox.intersects(a.collisionBox)) {
-				
-			}
 		}
 	}
 
@@ -102,6 +114,16 @@ public class ObjectManager {
 
 	public boolean inUse() {
 		return manager.inUse();
+	}
+	
+	public void purgeObjects () {
+		for (int i = 0; i < bushes.size(); i++) {
+			boolean isAliveCheck = bushes.get(i).isAlive;
+			if (isAliveCheck == false) {
+				bushes.remove(i);
+				score++;
+			}
+		}
 	}
 
 }
