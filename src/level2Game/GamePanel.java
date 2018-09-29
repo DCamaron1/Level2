@@ -17,15 +17,17 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 	final int END_STATE = 2;
 	int currentState = MENU_STATE;
 	Font menuFont;
+	Font menuFont2;
 	Font endFont1;
 	Timer timer;
 	static final int GROUND_LEVEL = 500;
 	Sadie sadie = new Sadie(80, GROUND_LEVEL - 40, 50, 50);
-	ObjectManager manager = new ObjectManager(sadie);
+	ObjectManager manager = new ObjectManager(sadie, 0);
 
 	@Override
 	public void paintComponent(Graphics g) {
 		menuFont = new Font("David", Font.ROMAN_BASELINE, 42);
+		menuFont2 = new Font("David", Font.ROMAN_BASELINE, 21);
 		endFont1 = new Font("Arial", Font.CENTER_BASELINE, 60);
 		if (currentState == MENU_STATE) {
 			drawMenuState(g);
@@ -64,11 +66,22 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 	}
 
 	public void drawMenuState(Graphics g) {
-		g.setColor(Color.lightGray);
+		//g.setColor(Color.lightGray);
+		//g.fillRect(0, 0, SadiesDashGame.WIDTH, SadiesDashGame.HEIGHT);
+		Color skyBlue = new Color(102, 204, 255);
+		Color groundBrown = new Color(102, 51, 10);
+		g.setColor(skyBlue);
 		g.fillRect(0, 0, SadiesDashGame.WIDTH, SadiesDashGame.HEIGHT);
+		g.setColor(groundBrown);
+		g.fillRect(0, GROUND_LEVEL, SadiesDashGame.WIDTH, SadiesDashGame.GROUNDH);
 		g.setFont(menuFont);
 		g.setColor(Color.black);
-		g.drawString("Sadie's Dash", 200, 300);
+		g.drawString("Sadie's Dash", 350, 150);
+		g.setFont(menuFont2);
+		g.drawString("Press UP arrow key to JUMP", 353, 400);
+		g.drawString("Press SPACE BAR to activate pills", 338, 440);
+		g.setColor(Color.white);
+		g.drawString("Press ENTER to start", 380, 520);
 	}
 
 	public void drawGameState(Graphics g) {
@@ -91,8 +104,9 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 		g.drawString("Created by David Calderon", 100, 100);
 		g.setColor(Color.red);
 		g.drawString("Aww, you lost.", 300, 300);
-		g.setColor(Color.red);
-		g.drawString("Better luck next time", 230, 400);
+		//g.setColor(Color.red);
+		g.drawString("Better luck next time!", 230, 400);
+		g.drawString("Your score: " + manager.getScore(), 300, 500);
 	}
 
 	@Override
@@ -121,14 +135,14 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 				currentState = END_STATE;
 			} else if (currentState == END_STATE) {
 				sadie = new Sadie(80, GROUND_LEVEL - 40, 50, 50);
-				manager = new ObjectManager(sadie);
+				manager = new ObjectManager(sadie, manager.getHighScore());
 				currentState = MENU_STATE;
 			}
 		}
-		if (e.getKeyCode() == 32) {
+		if (e.getKeyCode() == 38 && sadie.isJumping() == false) {
 			sadie.jumpUp();
 		}
-		if (e.getKeyCode() == 83 && manager.inUse() == false) {
+		if (e.getKeyCode() == 32 && manager.inUse() == false) {
 			manager.usePill();
 		}
 	}

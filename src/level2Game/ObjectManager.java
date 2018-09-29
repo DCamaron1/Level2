@@ -23,9 +23,10 @@ public class ObjectManager {
 	PillManager manager;
 	
 
-	public ObjectManager(Sadie rose) {
+	public ObjectManager(Sadie rose, long highscore) {
 		sadie = rose;
 		manager = new PillManager(sadie);
+		this.highScore = highscore; 
 	}
 
 	public void update() {
@@ -44,7 +45,6 @@ public class ObjectManager {
 		if (score>highScore) {
 			highScore = score;
 		}
-		
 		manager.update();
 		manager.checkCollision();
 		manager.purgeObjects();
@@ -126,4 +126,11 @@ public class ObjectManager {
 		}
 	}
 
+	public long getHighScore(){
+		return highScore;
+	}
+	
+	public long getScore(){
+		return score;
+	}
 }

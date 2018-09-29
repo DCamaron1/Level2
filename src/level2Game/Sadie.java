@@ -36,5 +36,13 @@ public class Sadie extends GameObject {
 	public void jumpUp() {
 		ySpeed = -4;
 	}
-
+	
+	public boolean isJumping(){
+		if(y==460){
+			return false;
+		}
+		else{
+			return true;
+		}
+	}
 }
