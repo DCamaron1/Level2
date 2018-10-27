@@ -32,10 +32,10 @@ public class PillManager {
 			pillTimer = 0;
 		}
 		if (yourPills <= 5) {
-			yourPillsString = "" + yourPills;
+			yourPillsString = "Pills: " + yourPills;
 		}
 		if (yourPills >= 5) {
-			yourPillsString = "max";
+			yourPillsString = "Pills: Max";
 			yourPills = 5;
 		}
 		if (pillLength < 0) {

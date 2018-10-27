@@ -17,7 +17,6 @@ public class Bush extends GameObject {
 	}
 
 	public void draw(Graphics g) {
-		g.setColor(Color.blue);
-		g.fillRect(x, y, width, height);
+		g.drawImage(level2Game.GamePanel.bushImg,x,y,50,50,null);
 	}
 }

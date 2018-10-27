@@ -19,8 +19,6 @@ public class Cloud extends GameObject {
 	}
 
 	public void draw(Graphics g) {
-
-		g.setColor(Color.gray);
-		g.fillRect(x, y + cloudY, width, height);
+		g.drawImage(level2Game.GamePanel.cloudImg,x,y,100,50,null);
 	}
 }

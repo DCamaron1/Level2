@@ -1,5 +1,7 @@
 package level2Game;
 
+import java.io.IOException;
+
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
@@ -11,7 +13,7 @@ public class SadiesDashGame {
 	static final int GROUNDH = 100;
 	GamePanel panel;
 
-	public void createUI() {
+	public void createUI() throws IOException {
 		panel = new GamePanel();
 		frame.setVisible(true);
 		frame.addKeyListener(panel);
@@ -22,7 +24,7 @@ public class SadiesDashGame {
 
 	}
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws IOException {
 		SadiesDashGame bob = new SadiesDashGame();
 		bob.createUI();
 	}

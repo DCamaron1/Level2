@@ -17,8 +17,7 @@ public class House extends GameObject {
 	}
 
 	public void draw(Graphics g) {
-		g.setColor(Color.green);
-		g.fillRect(x, y, width, height);
+		g.drawImage(level2Game.GamePanel.houseImg,x,y,70,90,null);
 	}
 
 }
