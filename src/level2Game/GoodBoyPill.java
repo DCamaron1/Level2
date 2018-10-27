@@ -17,8 +17,7 @@ public class GoodBoyPill extends GameObject{
 	}
 	
 	public void draw(Graphics g) {
-		g.setColor(Color.black);
-		g.fillRect(x,y,width,height);
+		g.drawImage(level2Game.GamePanel.pillImg,x,y,50,20,null);
 	}
 	
 	

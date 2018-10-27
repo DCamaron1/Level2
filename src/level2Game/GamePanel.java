@@ -7,7 +7,10 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
 
+import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
@@ -20,6 +23,13 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 	Font menuFont2;
 	Font endFont1;
 	Timer timer;
+	public static BufferedImage sadieImg; 
+	public static BufferedImage cloudImg;
+	public static BufferedImage skyImg;
+	public static BufferedImage houseImg;
+	public static BufferedImage bushImg;
+	public static BufferedImage sunImg; 
+	public static BufferedImage pillImg; 
 	static final int GROUND_LEVEL = 500;
 	Sadie sadie = new Sadie(80, GROUND_LEVEL - 40, 50, 50);
 	ObjectManager manager = new ObjectManager(sadie, 0);
@@ -42,8 +52,15 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 		timer.start();
 	}
 
-	public GamePanel() {
+	public GamePanel() throws IOException {
 		timer = new Timer(1000 / 60, this);
+		sadieImg = ImageIO.read(this.getClass().getResourceAsStream("sadie.png"));
+		houseImg = ImageIO.read(this.getClass().getResourceAsStream("house.png"));
+		skyImg = ImageIO.read(this.getClass().getResourceAsStream("sky.jpg"));
+		cloudImg = ImageIO.read(this.getClass().getResourceAsStream("cloud.jpg"));
+		pillImg = ImageIO.read(this.getClass().getResourceAsStream("pill.png"));
+		sunImg = ImageIO.read(this.getClass().getResourceAsStream("sun.png"));
+		bushImg = ImageIO.read(this.getClass().getResourceAsStream("Bush .png"));
 	}
 
 	public void updateMenuState() {
@@ -66,34 +83,30 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 	}
 
 	public void drawMenuState(Graphics g) {
-		//g.setColor(Color.lightGray);
-		//g.fillRect(0, 0, SadiesDashGame.WIDTH, SadiesDashGame.HEIGHT);
-		Color skyBlue = new Color(102, 204, 255);
+		g.drawImage(level2Game.GamePanel.skyImg,0,0,SadiesDashGame.WIDTH,SadiesDashGame.HEIGHT,null);
 		Color groundBrown = new Color(102, 51, 10);
-		g.setColor(skyBlue);
-		g.fillRect(0, 0, SadiesDashGame.WIDTH, SadiesDashGame.HEIGHT);
 		g.setColor(groundBrown);
 		g.fillRect(0, GROUND_LEVEL, SadiesDashGame.WIDTH, SadiesDashGame.GROUNDH);
 		g.setFont(menuFont);
 		g.setColor(Color.black);
-		g.drawString("Sadie's Dash", 350, 150);
+		g.drawString("Sadie's Dash", 380, 150);
 		g.setFont(menuFont2);
-		g.drawString("Press UP arrow key to JUMP", 353, 400);
-		g.drawString("Press SPACE BAR to activate pills", 338, 440);
+		g.drawString("Press UP arrow key to JUMP", 373, 400);
+		g.drawString("Press SPACE BAR to activate pills", 358, 440);
 		g.setColor(Color.white);
-		g.drawString("Press ENTER to start", 380, 520);
+		g.drawString("Press ENTER to start", 410, 520);
 	}
 
 	public void drawGameState(Graphics g) {
-		Color skyBlue = new Color(102, 204, 255);
+		g.drawImage(level2Game.GamePanel.skyImg,0,0,SadiesDashGame.WIDTH,SadiesDashGame.HEIGHT,null);
 		Color groundBrown = new Color(102, 51, 10);
-		g.setColor(skyBlue);
-		g.fillRect(0, 0, SadiesDashGame.WIDTH, SadiesDashGame.HEIGHT);
 		g.setColor(groundBrown);
 		g.fillRect(0, GROUND_LEVEL, SadiesDashGame.WIDTH, SadiesDashGame.GROUNDH);
-		manager.draw(g);
+		g.drawImage(level2Game.GamePanel.sunImg,100,40,100,100,null);
 		g.setColor(Color.black);
 		g.drawRect(19, 19, 301, 21);
+		manager.draw(g);
+		
 	}
 
 	public void drawEndState(Graphics g) {

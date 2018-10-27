@@ -3,6 +3,8 @@ package level2Game;
 import java.awt.Color;
 import java.awt.Graphics;
 
+import org.jointheleaue.level2.leagueInvaders.GamePanel;
+
 public class Sadie extends GameObject {
 	int xSpeed;
 	int ySpeed;
@@ -25,8 +27,7 @@ public class Sadie extends GameObject {
 	}
 
 	public void draw(Graphics g) {
-		g.setColor(Color.red);
-		g.fillRect(x, y, 50, 50);
+		g.drawImage(level2Game.GamePanel.sadieImg,x,y,50,50,null);
 	}
 
 	public void stop() {
