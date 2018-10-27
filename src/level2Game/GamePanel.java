@@ -23,14 +23,14 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 	Font menuFont2;
 	Font endFont1;
 	Timer timer;
-	public static BufferedImage sadieImg; 
-	public static BufferedImage cloudImg;
-	public static BufferedImage skyImg;
-	public static BufferedImage houseImg;
-	public static BufferedImage bushImg;
-	public static BufferedImage sunImg; 
-	public static BufferedImage pillImg; 
-	static final int GROUND_LEVEL = 500;
+	static BufferedImage sadieImg; 
+	static BufferedImage cloudImg;
+	static BufferedImage skyImg;
+	static BufferedImage houseImg;
+	static BufferedImage bushImg;
+	static BufferedImage sunImg; 
+	static BufferedImage pillImg; 
+	private final int GROUND_LEVEL = 500;
 	Sadie sadie = new Sadie(80, GROUND_LEVEL - 40, 50, 50);
 	ObjectManager manager = new ObjectManager(sadie, 0);
 
@@ -152,10 +152,10 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 				currentState = MENU_STATE;
 			}
 		}
-		if (e.getKeyCode() == 38 && sadie.isJumping() == false) {
+		if (e.getKeyCode() == 38 && !sadie.isJumping()) {
 			sadie.jumpUp();
 		}
-		if (e.getKeyCode() == 32 && manager.inUse() == false) {
+		if (e.getKeyCode() == 32 && !manager.inUse()) {
 			manager.usePill();
 		}
 	}

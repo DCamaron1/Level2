@@ -39,11 +39,6 @@ public class Sadie extends GameObject {
 	}
 	
 	public boolean isJumping(){
-		if(y==460){
-			return false;
-		}
-		else{
-			return true;
-		}
+		return y!=460;
 	}
 }
